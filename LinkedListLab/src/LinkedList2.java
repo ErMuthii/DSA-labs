@@ -29,6 +29,11 @@ public class LinkedList2
  
    public void add(Object data)  // appends the specified element to the end of this list.  
     {
+
+        if(head == null){
+            addToHead(data);
+            return;
+        }
         Node Temp = new Node(data);
         Node Current = head;
 
@@ -103,7 +108,8 @@ public class LinkedList2
         // if the index is out of range, exit
         if (index < 1 || index > size())
             return false;
- 
+
+        
         Node Current = head;
         for (int i = 1; i <= index; i++) 
         {
