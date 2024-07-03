@@ -29,7 +29,7 @@ public class LinkedList2
  
    public void add(Object data)  // appends the specified element to the end of this list.  
     {
-
+        // if there is no data in the list, add the data to the head
         if(head == null){
             addToHead(data);
             return;
@@ -50,44 +50,39 @@ public class LinkedList2
     }
     
  
-    public void add(Object data, int index) // inserts the specified element at the specified position in this list    
-    {
-        Node Temp = new Node(data);       
+    public void add(Object data, int index) {
+        Node Temp = new Node(data);
         Node Current = head;
-        
+    
         // crawl to the requested index or the last element in the list,
         // whichever comes first
-        for (int i = 1; i < index || Current.getNext() != null; i++) 
-        {
+        for (int i = 1; i < index && Current.getNext() != null; i++) {
             Current = Current.getNext();
         }
-        // set the new node's next-node reference to this node's next-node
-        // reference
+    
+        // set the new node's next-node reference to this node's next-node reference
         Temp.setNext(Current.getNext());
+    
         // now set this node's next-node reference to the new node
         Current.setNext(Temp);
-        listCount++;// increment the number of elements variable
+        listCount++; // increment the number of elements variable
     }
  
-    public Object get(int index) // returns the element at the specified position in this list.    
-    {
+    public Object get(int index) {
         // index must be 1 or higher
-        
-        
         if (index <= 0)
             return null;
- 
-        Node Current = head.getNext();
-        
-        for (int i = 1; i <= index ; i++) 
-        {
+    
+        Node Current = head; // start from the head node
+    
+        for (int i = 1; i < index; i++) { // iterate index - 1 times
             if (Current.getNext() == null)
                 return null;
-            //System.out.println("Value of i: " + i);
+    
             System.out.println("At index: " + i + " the data is: " + Current.getData());
             Current = Current.getNext();
         }
-        
+    
         return Current.getData();
     }
  
@@ -103,28 +98,28 @@ public class LinkedList2
         }
     }
       
-    public boolean remove(int index) // removes the element at the specified position in this list.    
-    {
+    public boolean remove(int index) {
         // if the index is out of range, exit
         if (index < 1 || index > size())
             return false;
-
-        
+    
         Node Current = head;
-        for (int i = 1; i <= index; i++) 
-        {
+        for (int i = 1; i < index; i++) { // stop one node before the node to be removed
             if (Current.getNext() == null)
                 return false;
- 
+    
             Current = Current.getNext();
         }
-        
-        Current.setNext(Current.getNext().getNext());
-        
-        listCount--; // decrement the number of elements variable
-        return true;
+    
+        // Skip the next node
+        if (Current.getNext() != null) {
+            Current.setNext(Current.getNext().getNext());
+            listCount--; // decrement the number of elements variable
+            return true;
+        }
+    
+        return false;
     }
- 
     public int size() // returns the number of elements in this list.    
     {
         return listCount;

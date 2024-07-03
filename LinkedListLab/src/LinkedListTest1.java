@@ -12,6 +12,8 @@ public class LinkedListTest1 {
         lList.add("ICS 2013");
 
        
+        lList.get(1);
+       
 
         System.out.println("Traversing the list");
         lList.traverse();
